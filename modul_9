@@ -1,0 +1,105 @@
+
+//управление автомобилем автопилот
+var controlModeAuto = true
+//управление автомобилем ручное
+var controlModeManual = true
+if (controlModeAuto) == false{
+    print("автопилот отключен")
+}else{
+    print ("автопилот включен")
+}
+
+
+    //характеристика автомобиля
+class carData {
+    //вес авто
+let weiht: Int = 2108
+        //длина
+let length: Int = 4976
+    //ширина
+let widht: Int = 1963
+    //высота
+let heihgt: Int = 1435
+    //колесная база
+let weelbase: Int = 2959
+    //клиренс
+let clearenc: Double = 154.9
+    //вместимость багажника
+let trunkVolume: Int = 900
+}
+
+//функциональные зарактеристики
+//1. уровень музыки:
+var controlMusic: Int = 10
+switch controlMusic {
+case 1...5:
+    print ("Низкий уровень звука")
+case 6...10:
+    print ("Уровень звука повышен")
+default:
+    break
+}
+//2. уровень открытия люка
+var hatchOpen: Double = 30
+switch hatchOpen {
+case 1...20:
+    print ("люк открыт на \(hatchOpen) %")
+case 20...40:
+    print ("люк открыт на \(hatchOpen) %")
+default:
+    break
+}
+
+
+enum ErrorSystem: Error{
+case check // проблема в двигателе
+case lowBattery // низкая батарея
+case bulbBurnedOut // низкий уровень топлива
+case APturnedOn // включение автопилота
+}
+var check: Bool = false
+var lowBattery: Bool = false
+var bulbBurnedOut: Bool = true
+
+func AutoDrive() throws{
+if check {
+throw ErrorSystem.check
+}
+if lowBattery {
+throw ErrorSystem.lowBattery
+}
+if bulbBurnedOut {
+throw ErrorSystem.bulbBurnedOut
+}
+}
+do {
+try AutoDrive()
+} catch ErrorSystem.check {
+    print("проблема в двигателе, обратитесь в сервис")
+} catch ErrorSystem.lowBattery {
+    print("Батарея садится! Ближайшая станция подзарядки через 10 км")
+} catch ErrorSystem.bulbBurnedOut{
+    print("Лампа ближнего света перегорела. Заменить!")
+}
+
+
+
+enum DriveSafeError: Error {
+    case ApTurnOn // автопилот включен
+    case ApTurnOff //автопилот выключен
+}
+    
+var ApTurnOn: Bool = true
+var ApTurnOff: Bool = false
+
+func DriveSafeError() throws{
+if ApTurnOn {
+throw DriveSafeError.ApTurnOn
+}
+do {
+try DriveSafeError()
+} catch DriveSafeError.ApTurnOn {
+    print("Автопилот включен, следите внимательно за дорогой!")
+}
+}
+
